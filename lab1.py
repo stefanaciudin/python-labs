@@ -8,25 +8,18 @@ def gcd(a, b):
 
 
 def get_gcd_of_numbers():
-    numbers = []
-
-    while True:
-        try:
-            num = int(input("Enter a number (or 0 to calculate GCD): "))
-            if num == 0:
-                break
-            numbers.append(num)
-        except ValueError:
-            print("Invalid input. Please enter a valid integer.")
-
-    if len(numbers) < 2:
-        print("At least two numbers are required to calculate GCD.")
-    else:
-        gcdVal = numbers[0]
-        for i in range(1, len(numbers)):
-            gcdVal = gcd(gcdVal, numbers[i])
-
-        print(f"The GCD of {numbers} is {gcdVal}")
+    try:
+        num_list = input("Enter numbers separated by spaces: ").split()
+        numbers = [int(num) for num in num_list]
+        if len(numbers) < 2:
+            print("At least two numbers are required to calculate GCD.")
+        else:
+            gcd_value = numbers[0]
+            for num in numbers[1:]:
+                gcd_value = gcd(gcd_value, num)
+            print(f"The GCD of the numbers is {gcd_value}")
+    except ValueError:
+        print("Invalid input. Please enter valid integers separated by spaces.")
 
 
 get_gcd_of_numbers()
