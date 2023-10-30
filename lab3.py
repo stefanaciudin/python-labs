@@ -13,8 +13,8 @@ def set_operations(a: list[Any], b: list[Any]) -> list[set[Any]]:
     return result
 
 
-list_a = [1, 2, 3, 4]
-list_b = [3, 4, 5, 6]
+list_a = [1, 2, 3, 4, 5]
+list_b = [3, 4, 5, 6, 7]
 
 result_sets = set_operations(list_a, list_b)
 print("Intersection:", result_sets[0])
@@ -36,7 +36,7 @@ def count_occurrences(text: str) -> dict[str, int]:
     return occurrences
 
 
-example = "ana has apples"
+example = "Ana has apples"
 print("Occurrences in example 'ana has apples':", count_occurrences(example))
 
 
@@ -114,14 +114,30 @@ print("Dictionary is valid:", validate_dict(r, dic))
 # unique elements in the list, and b representing the number of duplicate elements in the list (use sets to achieve
 # this objective).
 
-def count_unique_and_duplicates(list_to_count: list[Any]) -> tuple[int, int]:
-    unique_elements = set(list_to_count)
-    unique_count = len(unique_elements)
-    duplicate_count = len(list_to_count) - unique_count
-    return unique_count, duplicate_count
+def count_unique_and_duplicates(input_list):
+    # create a set to store unique elements
+    unique_set = set()
+
+    # create a set to store duplicate elements
+    duplicate_set = set()
+
+    for item in input_list:
+        if item in unique_set and item not in duplicate_set:
+            duplicate_set.add(item)
+        else:
+            unique_set.add(item)
+
+    # calculate unique items (appear only once)
+    unique_items = [item for item in input_list if input_list.count(item) == 1]
+
+    return unique_items, list(duplicate_set)
 
 
-print("Unique and duplicate elements:", count_unique_and_duplicates([1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 7, 8, 9]))
+# Example usage:
+my_list = [1, 2, 2, 3, 4, 4, 5, 5, 6, 8, 9, 9, 9, 9, 9, 9, 9]
+result = count_unique_and_duplicates(my_list)
+print("Unique items:", result[0])
+print("Duplicate items:", result[1])
 
 
 # ex7: Write a function that receives a variable number of sets and returns a dictionary with the following
