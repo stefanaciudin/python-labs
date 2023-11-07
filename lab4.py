@@ -126,6 +126,9 @@ class Matrix:
             for j in range(len(self.matrix[0])):
                 self.matrix[i][j] = function(self.matrix[i][j])
 
+    def __str__(self):
+        return "\n".join([" ".join(map(str, r)) for r in self.matrix])
+
 
 matrix1 = Matrix(3, 2)
 
@@ -151,16 +154,9 @@ matrix2.set(1, 2, 12)
 
 result_matrix = matrix1.multiply(matrix2)
 
-
-def square(x):
-    return x * x
-
-
-matrix1.apply(square)
-
-print("Squared Matrix:")
-for row in matrix1.matrix:
-    print(row)
+print("Apply function to matrix:")
+matrix1.apply(lambda x: x * 2)
+print(matrix1)
 
 print("Transposed Matrix:")
 for row in transposed_matrix.matrix:
