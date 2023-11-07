@@ -14,7 +14,9 @@ class Stack:
 
     def pop(self) -> Any:
         if not (len(self.items) == 0):
-            return self.items.pop()
+            last_item = self.items[-1]
+            self.items = self.items[:-1]
+            return last_item
         else:
             return None
 
@@ -53,7 +55,9 @@ class Queue:
 
     def pop(self) -> Any:
         if not (len(self.items) == 0):
-            return self.items.pop(0)
+            first_item = self.items[0]
+            self.items = self.items[1:]
+            return first_item
         else:
             return None
 
