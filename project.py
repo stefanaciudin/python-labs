@@ -11,8 +11,8 @@ def get_photos(tag, count, output_file="outputdata.json"):
         'tags': tag,
         'format': 'json',
         'nojsoncallback': 1,
-        'per_page': count * 100,
         'sort': 'date-posted-desc',
+        'per_page': 500,
         'extras': 'geo'
     }
     response = requests.get(url, params=params)
@@ -25,7 +25,7 @@ def get_photos(tag, count, output_file="outputdata.json"):
 
     filtered_photos = [photo for photo in photos if 'latitude' in photo and 'longitude' in photo]
     placed = 0
-    _map = folium.Map(location=[0, 0], zoom_start=2)
+    locations_map = folium.Map(location=[0, 0], zoom_start=2)
 
     coordinate_counter = {}
     for photo in filtered_photos:
@@ -42,15 +42,15 @@ def get_photos(tag, count, output_file="outputdata.json"):
             folium.Marker(
                 location=[float(photo['latitude']), float(photo['longitude'])],
                 popup=marker_popup
-            ).add_to(_map)
+            ).add_to(locations_map)
             print(f"{placed}: Placed photo with id:{photo['id']}, coordinates: {coordinate}")
             placed += 1
 
-    return _map
+    return locations_map
 
 
-t = 'stars'
-cnt = 7
+t = input("Enter the tag: ")
+cnt = int(input("Enter the count: "))
 
 generated_map = get_photos(t, cnt)
 generated_map.save('map.html')
