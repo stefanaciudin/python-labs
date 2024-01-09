@@ -42,7 +42,13 @@ def get_photos(tag: str, count: int, output_file: str = "outputdata.json") -> fo
             else:
                 coordinate_counter[coordinate] += 1
 
-            marker_popup = f"Coordinates: {coordinate}<br>Photo IDs: {', '.join(str(photo['id']) for photo in filtered_photos if (photo['latitude'], photo['longitude']) == coordinate)}"
+            filtered_photo_ids = ', '.join(
+                str(photo['id'])
+                for photo in filtered_photos
+                if (photo['latitude'], photo['longitude']) == coordinate
+            )
+            marker_popup = f"Coordinates: {coordinate}<br>Photo IDs: {filtered_photo_ids}"
+
             folium.Marker(
                 location=[float(photo['latitude']), float(photo['longitude'])],
                 popup=marker_popup
